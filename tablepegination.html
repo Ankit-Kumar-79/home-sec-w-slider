@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Table with Pagination</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .select-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            font-size: 16px;
+            color: #333;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 15px;
+            vertical-align: middle;
+            border: 2px solid #ddd;
+        }
+
+        .profile-cell {
+            display: flex;
+            align-items: center;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination button.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="select-container">
+        <button>Select State</button>
+        <button>Select Designation</button>
+    </div>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>S. No</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>State</th>
+                <th>District</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button id="prevPage" class="disabled" onclick="prevPage()">Previous</button>
+        <button id="nextPage" onclick="nextPage()">Next</button>
+    </div>
+</div>
+
+<script>
+    const data = [
+        { no: 1, name: "Sudhanshu Srivastava", designation: "District Director", state: "Uttar Pradesh East", district: "Lucknow", img: "https://picsum.photos/40?1" },
+        { no: 2, name: "Sushil Kumar", designation: "District Director", state: "Rajasthan", district: "Sri Ganganagar", img: "https://picsum.photos/40?2" },
+        { no: 3, name: "Dayaram Yadav", designation: "District Director", state: "Madhya Pradesh", district: "Rajgarh", img: "https://picsum.photos/40?3" },
+        { no: 4, name: "Ravi Sharma", designation: "District Director", state: "Uttar Pradesh West", district: "Agra", img: "https://picsum.photos/40?4" },
+        { no: 5, name: "Nitesh Singh", designation: "District Director", state: "Bihar", district: "Patna", img: "https://picsum.photos/40?5" },
+        { no: 6, name: "Manoj Verma", designation: "District Director", state: "Maharashtra", district: "Mumbai", img: "https://picsum.photos/40?6" },
+        { no: 7, name: "Rajesh Patel", designation: "District Director", state: "Gujarat", district: "Ahmedabad", img: "https://picsum.photos/40?7" },
+        { no: 8, name: "Anil Singh", designation: "District Director", state: "Punjab", district: "Amritsar", img: "https://picsum.photos/40?8" }
+    ];
+
+    const rowsPerPage = 3;
+    let currentPage = 1;
+
+    function displayTableData() {
+        const tableBody = document.querySelector("#dataTable tbody");
+        tableBody.innerHTML = "";
+
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const pageData = data.slice(startIndex, endIndex);
+
+        pageData.forEach(item => {
+            const row = `<tr>
+                            <td>${item.no}</td>
+                            <td class="profile-cell"><img src="${item.img}" alt="${item.name}"><a href="#">${item.name}</a></td>
+                            <td>${item.designation}</td>
+                            <td>${item.state}</td>
+                            <td>${item.district}</td>
+                         </tr>`;
+            tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+        updatePaginationButtons();
+    }
+
+    function updatePaginationButtons() {
+        document.getElementById("prevPage").classList.toggle("disabled", currentPage === 1);
+        document.getElementById("nextPage").classList.toggle("disabled", currentPage === Math.ceil(data.length / rowsPerPage));
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayTableData();
+        }
+    }
+
+    function nextPage() {
+        if (currentPage < Math.ceil(data.length / rowsPerPage)) {
+            currentPage++;
+            displayTableData();
+        }
+    }
+
+    // Initial display
+    displayTableData();
+</script>
+
+</body>
+</html>

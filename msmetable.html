@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Table Design</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+        padding: 20px;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .select-container {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        margin: 0 10px;
+        cursor: pointer;
+        border-radius: 25px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        padding: 15px 20px;
+        text-align: left;
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      tr {
+        transition: background-color 0.2s ease;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      td {
+        font-size: 16px;
+        color: #333;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      img {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 15px;
+        vertical-align: middle;
+        border: 2px solid #ddd;
+      }
+
+      .profile-cell {
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="select-container">
+        <button>Select State</button>
+        <button>Select Designation</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>S. No</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>State</th>
+            <th>District</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="profile-cell">
+              <img
+                src="https://picsum.photos/40"
+                alt="Sudhanshu Srivastava"
+              /><a href="#">Sudhanshu Srivastava</a>
+            </td>
+            <td>District Director</td>
+            <td>Uttar Pradesh East</td>
+            <td>Lucknow</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="profile-cell">
+              <img src="https://picsum.photos/40" alt="Sushil Kumar" /><a
+                href="#"
+                >Sushil Kumar</a
+              >
+            </td>
+            <td>District Director</td>
+            <td>Rajasthan</td>
+            <td>Sri Ganganagar</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="profile-cell">
+              <img src="https://picsum.photos/40" alt="Dayaram Yadav" /><a
+                href="#"
+                >Dayaram Yadav</a
+              >
+            </td>
+            <td>District Director</td>
+            <td>Madhya Pradesh</td>
+            <td>Rajgarh</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
